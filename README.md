@@ -12,9 +12,14 @@
 
 - [智谱清言智能体API+🤗hugging Face每日论文](https://github.com/2404589803/hf-daily-paper-newsletter-chinese)
 
+应用场景：🤗hugging Face每日论文解读
 
+
+- [智谱清言智能体API+mediapipe](https://github.com/2404589803/GLMs-api-everone-cookbook/tree/main/GLMS-API-mediapipe)
+
+应用场景：类实时图片解释
 
 # 📕 计划的场景
 
-- [ ] 智谱清言智能体API+mediapipe
+- [X] 智谱清言智能体API+mediapipe
 - [ ] 智谱清言智能体API+YOLO V10
