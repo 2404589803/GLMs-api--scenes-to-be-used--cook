@@ -1,0 +1,5 @@
+2024-05-30 17:05:53,401 - INFO - Starting face detection application.
+2024-05-30 17:06:53,439 - INFO - Generated base64 URL.
+2024-05-30 17:06:53,441 - INFO - Started thread to request OpenAI.
+2024-05-30 17:06:59,062 - INFO - HTTP Request: POST http://8.130.209.127:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-30 17:06:59,067 - INFO - OpenAI response received.
