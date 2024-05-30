@@ -82,16 +82,22 @@ def request_openai(base64_url, response_ready_event):
             stream=False
         )
         response_content = result.choices[0].message.content
-        logging.info("OpenAI response: %s", response_content)
+        logging.info("OpenAI response received.")
         print("\nOpenAI response:\n", response_content)
 
-        # 记录日志文件生成的时间
-        log_file_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"Log file generated at: {log_file_time}")
+        # 将响应内容记录到txt文件中
+        with open(os.path.join(script_dir, 'responses.txt'), 'a', encoding='utf-8') as f:
+            f.write(f"{datetime.datetime.now()}: {response_content}\n\n")
     except Exception as e:
         logging.error("Error while requesting OpenAI: %s", e)
     finally:
         response_ready_event.set()
+
+# 如果responses.txt文件不存在,则创建一个新文件
+responses_file_path = os.path.join(script_dir, 'responses.txt')
+if not os.path.exists(responses_file_path):
+    with open(responses_file_path, 'w', encoding='utf-8') as f:
+        pass
 
 last_base64_time = time.time()
 interval = 60
