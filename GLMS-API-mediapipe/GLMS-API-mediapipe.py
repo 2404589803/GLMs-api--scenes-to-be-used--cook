@@ -10,6 +10,8 @@ from tqdm import tqdm
 import logging
 from openai import OpenAI
 import datetime
+from gtts import gTTS
+import playsound
 
 # 获取当前脚本文件所在目录
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -58,6 +60,9 @@ def frame_to_base64(frame):
     base64_url = f"data:image/jpeg;base64,{img_str}"
     return base64_url
 
+# 初始化一个线程锁
+audio_lock = threading.Lock()
+
 def request_openai(base64_url, response_ready_event):
     try:
         result = client.chat.completions.create(
@@ -88,6 +93,24 @@ def request_openai(base64_url, response_ready_event):
         # 将响应内容记录到txt文件中
         with open(os.path.join(script_dir, 'responses.txt'), 'a', encoding='utf-8') as f:
             f.write(f"{datetime.datetime.now()}: {response_content}\n\n")
+        
+        # 创建保存音频文件的目录
+        audio_dir = os.path.join(script_dir, 'mp3')
+        if not os.path.exists(audio_dir):
+            os.makedirs(audio_dir)
+        
+        # 使用时间戳创建唯一文件名
+        timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+        audio_file = os.path.join(audio_dir, f'response_{timestamp}.mp3')
+
+        # 将响应文本转换为语音
+        tts = gTTS(text=response_content, lang='zh')
+        tts.save(audio_file)
+
+        # 播放音频文件，并确保不会混合播放
+        with audio_lock:
+            playsound.playsound(audio_file)
+
     except Exception as e:
         logging.error("Error while requesting OpenAI: %s", e)
     finally:
