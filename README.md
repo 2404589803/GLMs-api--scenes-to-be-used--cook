@@ -25,6 +25,10 @@
 
 应用场景：类实时图片解释
 
+- [智谱清言智能体API零代码开发平台](https://github.com/2404589803/GLMs-API-agent-platform)
+
+应用场景：便利用户扩展开发智能体功能
+
 # 📕 计划的场景
 
 - [X] 智谱清言智能体API+mediapipe
